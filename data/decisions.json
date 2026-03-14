@@ -1,0 +1,18 @@
+[
+  {
+    "id": "cea10396-c6e5-492e-90fe-d42c9ea7763e",
+    "title": "I am deciding whether I should visit Boston",
+    "context": "It really depends on cost cutting and also on my vacations",
+    "alternatives": [
+      "Maybe I would reavel locally or do somehting fun at home"
+    ],
+    "confidenceScore": 7,
+    "reviewDate": "2026-12-12",
+    "tags": [
+      "Travel"
+    ],
+    "outcome": null,
+    "createdAt": "2026-03-14T21:20:32.243Z",
+    "updatedAt": "2026-03-14T21:20:32.243Z"
+  }
+]

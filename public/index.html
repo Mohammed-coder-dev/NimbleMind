@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decision Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ── Header ──────────────────────────────────────── -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="wordmark">
+          <span class="wordmark-icon">◈</span>
+          <span class="wordmark-text">Nimblemind</span>
+        </div>
+        <nav class="header-nav">
+          <button class="nav-btn active" data-view="decisions">All</button>
+          <button class="nav-btn" data-view="overdue">Overdue</button>
+          <button class="nav-btn" data-view="today">Due Today</button>
+        </nav>
+        <button class="btn-primary" id="openAddModal">+ New Decision</button>
+      </div>
+    </header>
+
+    <!-- ── Stats Bar ───────────────────────────────────── -->
+    <section class="stats-bar">
+      <div class="stat-pill" id="stat-total">
+        <span class="stat-num">—</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill" id="stat-resolved">
+        <span class="stat-num">—</span>
+        <span class="stat-label">Resolved</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill overdue-pill" id="stat-overdue">
+        <span class="stat-num">—</span>
+        <span class="stat-label">Overdue</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill" id="stat-confidence">
+        <span class="stat-num">—</span>
+        <span class="stat-label">Avg Confidence</span>
+      </div>
+    </section>
+
+    <!-- ── Main ───────────────────────────────────────── -->
+    <main class="main-content">
+      <div id="decisions-grid" class="decisions-grid"></div>
+      <div id="empty-state" class="empty-state hidden">
+        <span class="empty-icon">◎</span>
+        <p>No decisions here yet.<br />Every choice is data.</p>
+      </div>
+    </main>
+
+    <!-- ── Add / Edit Modal ───────────────────────────── -->
+    <div class="modal-overlay hidden" id="decisionModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 id="modal-title">Log a Decision</h2>
+          <button class="modal-close" id="closeModal">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="field">
+            <label for="f-title">Title <span class="req">*</span></label>
+            <input id="f-title" type="text" placeholder="What are you deciding?" />
+          </div>
+
+          <div class="field">
+            <label for="f-context">Context <span class="req">*</span></label>
+            <textarea id="f-context" rows="3" placeholder="Why does this matter? What's the situation?"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="f-alternatives">Alternatives considered</label>
+            <textarea id="f-alternatives" rows="2" placeholder="Option A, Option B, Option C…"></textarea>
+            <span class="field-hint">Comma-separated list</span>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="f-confidence">Confidence <span class="req">*</span></label>
+              <div class="confidence-row">
+                <input id="f-confidence" type="range" min="1" max="10" value="7" />
+                <span class="confidence-val" id="confidenceDisplay">7</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-review">Review date</label>
+              <input id="f-review" type="date" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-tags">Tags</label>
+            <input id="f-tags" type="text" placeholder="work, personal, finance…" />
+            <span class="field-hint">Comma-separated</span>
+          </div>
+
+          <!-- Outcome section (visible in edit mode only) -->
+          <div class="field outcome-field hidden" id="outcomeSection">
+            <label for="f-outcome">Outcome / Result</label>
+            <textarea id="f-outcome" rows="2" placeholder="What actually happened? Was your reasoning correct?"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-ghost" id="cancelModal">Cancel</button>
+          <button class="btn-primary" id="saveDecision">Save Decision</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Detail / Review Modal ──────────────────────── -->
+    <div class="modal-overlay hidden" id="detailModal">
+      <div class="modal modal-detail">
+        <div class="modal-header">
+          <h2 id="detail-title"></h2>
+          <button class="modal-close" id="closeDetail">✕</button>
+        </div>
+        <div class="modal-body" id="detail-body"></div>
+        <div class="modal-footer">
+          <button class="btn-ghost btn-delete" id="detail-delete">Delete</button>
+          <button class="btn-ghost" id="detail-edit">Edit</button>
+          <button class="btn-primary" id="detail-outcome">Log Outcome</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
